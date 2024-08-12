@@ -7,14 +7,9 @@ SORTER2-Toolkit is an updated version of the previous SORTER pipeline to provide
 
 The three overarching goals of the pipeline are to:
 
-
 1. Build multiple sequence alignments of orthologous sequences for loci generated from paired-end reads. The initial purpose of this pipeline was to reduce paralogous multi-copy sequences and handle heterozygosity by using identity clustering within and among samples, respectively, for the same reference locus. The pipeline generates consensus alleles from heterozygous variants by clustering highly similar contigs (i.e. 99% sequence similarity) associated with the same reference locus and sample to generate consensus sequences presumably representing allelic variation at IUPAC ambiguity sites. The pipeline then maps consensus alleles for all samples to the target references and does a second round of clustering among samples to separate potential paralogs. Given appropriate clustering identity, this can filter and separate paralogs derived from the same locus into separate orthologous sets across all samples, effectively generating additional loci for analysis when paralogs are present. We are in the process of developing a clustering threshold optimizer to assess the best clustering threshold relative to sample representation across clusters.
 
-​​
-
 2. Consensus allele sequences are phased into respective bi-allelic haplotypes for each presumably diploid sample. Phased bi-allelic haplotypes derived from previously determined orthologs are used to build alignments where each sample is represented by two sequences representing heterozygous or homozygous alleles.
-
-
 
 ​3. Infer hybrid haplotypes based on similarity to potential progenitor samples. This generates a multiple sequence alignment where hybrid samples can have several (phased) tips, corresponding to alternative progenitors, depending on the number of hybrid haplotypes present in the sample. This usually works better for allopolyploid hybrids where we expect low levels of inter-homeologous recombination, but the pipeline has been successful in phasing haplotypes from homoploid hybrids (i.e. Parental 'pseudo-haploblocks' which may have variable levels of diploid recombination between progenitors). The level of recombination in homoploid hybrids and the divergence between their progenitors will influence the relative resolution of the hybrids' phylogenetic relationships. Despite recombination, the pipeline usually generates resolved progenitor hybrid hypotheses at shallow phylogenetic scales (i.e. subspecies) even if they have lower support due to recombination based discordance (Mendez-Reneau et al., 2024)
 
