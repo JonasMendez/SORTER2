@@ -318,7 +318,7 @@ if args.dovcf == 'T':
 				if ind in readstat:
 					print(readstat)
 					with open(readstat, "r") as statfile:
-						lines_to_read = [16, 17]
+						lines_to_read = [13, 14]
 						for position, line in enumerate(statfile):
 							if '+' in line:
 								statlabela = line.split(" ")[3]
@@ -331,13 +331,13 @@ if args.dovcf == 'T':
 								HETDICT[ind][statlabel].append(int(statint))
 							else:
 								if position in lines_to_read:
-									if position == 16:
+									if position == 13:
 										statlabel = 'readdepth'
 										statint = line.strip('\n')
 										print(statlabel + ' = ' + statint)
 										HETDICT[ind][statlabel]=[]
 										HETDICT[ind][statlabel].append(int(float(statint)))
-									elif position == 17:
+									elif position == 14:
 										statlabel = 'coverage'
 										statint = line.strip('\n')
 										print(statlabel + ' = ' + statint)
