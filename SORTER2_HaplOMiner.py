@@ -57,10 +57,17 @@ for folder in os.listdir(args.workingdir):
 		subprocess.call(["bwa mem -V %s %s %s > %s_cpreads.sam" % (args.cpref, dirpath+read, dirpath+R2, sample)], shell=True)
 		subprocess.call(["samtools sort  %s -o %s" % (dirpath+sample + '_cpreads.sam', dirpath+sample + '_cpreads_srt.bam')], shell=True)
 		subprocess.call(["samtools index  %s" % (dirpath+sample + '_cpreads_srt.bam')], shell=True)
-		subprocess.call(["bcftools mpileup -B --min-BQ 20 -Ov -d 500 -f %s %s | bcftools call -mv --ploidy 1 -Oz -p .0001 -o %s " % (args.cpref, dirpath+sample + '_cpreads_srt.bam', dirpath+sample + '_cpreads_called.vcf.gz' )], shell=True)
-		subprocess.call(["bcftools index  %s" % (dirpath+sample + '_cpreads_called.vcf.gz')], shell=True)
-		subprocess.call(["cat %s | bcftools consensus %s > %scp_final.fasta" % (args.cpref, dirpath+sample+'_cpreads_called.vcf.gz', folder[:-8])], shell=True)
+		# subprocess.call(["bcftools mpileup -B --min-BQ 20 -Ov -d 500 -f %s %s | bcftools call -mv --ploidy 1 -Oz -p .0001 -o %s " % (args.cpref, dirpath+sample + '_cpreads_srt.bam', dirpath+sample + '_cpreads_called.vcf.gz' )], shell=True)
+		# subprocess.call(["bcftools index  %s" % (dirpath+sample + '_cpreads_called.vcf.gz')], shell=True)
+		#subprocess.call(["bcftools norm -f %s %s -Oz -o %s_cpreads.norm.vcf.gz" % (args.cpref, dirpath+sample+'_cpreads_called.vcf.gz', dirpath+sample)], shell=True)
+		#subprocess.call(["bcftools index  %s" % (dirpath+sample + '_cpreads.norm.vcf.gz')], shell=True)
+		#subprocess.call(["cat %s | bcftools consensus %s > %s_cp_final.fasta" % (args.cpref, dirpath+sample+'_cpreads.norm.vcf.gz', dirpath+sample)], shell=True)
+		subprocess.call(["bcftools mpileup -B --min-BQ 20 -Ov -d 500 -f %s %s | bcftools call -c --ploidy 1 -Ov -p .0001 -o %s " % (args.cpref, dirpath+sample + '_cpreads_srt.bam', dirpath+sample + '_cpreads_called.vcf' )], shell=True)
+		subprocess.call(["tabix %s" % (dirpath+sample + '_cpreads_called.vcf')], shell=True)
+		subprocess.call(["vcfutils.pl vcf2fq %s > %s" % (sample + '_cpreads_called.vcf', sample + '_cpreads.fastq')], shell=True)
+		subprocess.call(["seqtk seq -A -q 20 %s > %s_cp_final.fasta" % (sample + '_cpreads.fastq', sample)], shell=True)
 		os.remove(sample+"_cpreads.sam")
+		os.remove(sample+"_cpreads.fastq")
 		for bam in os.listdir(args.workingdir+folder):
 			if bam.endswith('_cpreads_srt.bam'):
 				statfilename = bam[:-16] + "_chloroplastreadstats.txt"
@@ -120,7 +127,7 @@ for samp in os.listdir(args.workingdir):
 	if samp.endswith('assembly'):
 		os.chdir(args.workingdir+samp)
 		for readstat in os.listdir(args.workingdir+samp):
-			if readstat.endswith('readstats.txt'):
+			if readstat.endswith('chloroplastreadstats.txt'):
 				for ind in HETDICT:
 					if ind in readstat:
 						print(readstat)
