@@ -248,7 +248,7 @@ if args.dovcf == 'T':
 	os.chdir(args.workingdir)
 
 	#make vcf-folder
-	os.makedirs('PAVPipe_vcf')
+	os.makedirs('SORTER2Processor_VCF')
 	mcstr=str(args.majorclusters)
 	countstr=str(outputcount)
 	ref = clustdir+countstr+'Loci_'+filtstr+'_'+mcstr+'MajorClusters_consensusrefs.fasta'
@@ -343,6 +343,32 @@ if args.dovcf == 'T':
 										print(statlabel + ' = ' + statint)
 										HETDICT[ind][statlabel]=[]
 										HETDICT[ind][statlabel].append(int(float(statint)))
+
+	#get readstat values
+	het_values_list = list(HETDICT.values())
+	columns = [x for x in het_values_list[0]]
+	header = ['Individual']+columns
+	os.chdir(vcfdir)
+	
+	with open('VCF_readstats1.csv', 'w') as outfile:
+		writer = csv.writer(outfile)
+		writer.writerow(header)
+		statlist = list(HETDICT.values())
+		stats = statlist[0].keys()
+		#samples = columns[0:]
+		for ind in HETDICT.keys():
+			writer.writerow([ind]+[HETDICT[ind][stat] for stat in stats])
+
+	with open('VCF_readstats1.csv', 'r') as infile:
+	    with open('VCF_readstats.csv', 'w') as outfile:
+		    data = infile.read()
+		    data = data.replace("]", "")
+		    data = data.replace("[", "")
+		    outfile.write(data)
+
+	for file in os.listdir(vcfdir):
+		if file.endswith("readstats1.csv"):
+			os.remove(file)
 
 else:
 	sys.exit('SORTER2VCF Filtered alignments and generated consensus sequence references for filtered loci, skipped read mapping and vcf')
