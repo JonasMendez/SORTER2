@@ -44,7 +44,7 @@ if args.trim == 'T':
 #Assemble Contigs with Spades
 if args.spades == 'T':
 
-	for file in wdlist:
+	for file in os.listdir(dst):
 		if 'assembly' in file:
 			print("Running Spades on " + file)
 			os.chdir(dst + file)
