@@ -44,15 +44,15 @@ if args.trim == 'T':
 #Assemble Contigs with Spades
 if args.spades == 'T':
 
-	for file in os.listdir(wdlist):
+	for file in wdlist:
 		if 'assembly' in file:
 			print("Running Spades on " + file)
-			os.chdir(rootwd + file)
-			for read in os.listdir(rootwd + file):
+			os.chdir(dst + file)
+			for read in os.listdir(dst + file):
 				if 'R1_val_1.fq' in read:
 					R2 = read[:-11] + 'R2_val_2.fq'
 					subprocess.call(["spades.py --only-assembler -1 %s -2 %s -o spades_hybrid_assembly" % (read, R2)], shell=True)
-					os.chdir(rootwd)
+					os.chdir(dst)
 				else:
 					continue
 		else:
