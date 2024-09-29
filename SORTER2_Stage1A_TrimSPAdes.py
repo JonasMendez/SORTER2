@@ -14,7 +14,7 @@ args = parser.parse_args()
 rootwd=os.getcwd()+'/'
 
 #Make Project Folder
-dst = rootwd + 'SORTER2_'+ args.projname +'_/'
+dst = rootwd + 'SORTER2_'+ args.projname +'/'
 wdlist = os.listdir(rootwd)
 print('Reads will be processed in:\n' + dst)
 
