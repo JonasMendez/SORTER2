@@ -410,7 +410,7 @@ if args.recluster == 'T':
 							linspl=line.split(' ')[0]
 							linspl2=linspl.split('_')
 							print(linspl2)
-							name = linspl2[0] + '_' + linspl2[1] + '_' + linspl2[2] + '_' + linspl2[3] + '\n'
+							name = linspl2[0] + '_' + linspl2[1] + '_' + linspl2[2] + '_' + linspl2[3] 
 							print(name)
 							replaceAll(file, line, name)
 	else:
@@ -425,7 +425,7 @@ if args.recluster == 'T':
 								linspl=line.split(' ')[0]
 								linspl2=linspl.split('_')
 								print(linspl2)
-								name = '>' + linspl2[2] + '_' + linspl2[3] + '\n'
+								name = '>' + linspl2[2] + '_' + linspl2[3] 
 								print(name)
 								replaceAll(file, line, name)
 		else:
@@ -917,7 +917,7 @@ else:
 							linspl=line.split(' ')[0]
 							linspl2=linspl.split('_')
 							print(linspl2)
-							name = linspl2[0] + '_' + linspl2[1] + '_' + linspl2[2] + '_' + linspl2[3] + '\n'
+							name = linspl2[0] + '_' + linspl2[1] + '_' + linspl2[2] + '_' + linspl2[3]
 							print(name)
 							replaceAll(file, line, name)
 	else:
@@ -932,7 +932,7 @@ else:
 								linspl=line.split(' ')[0]
 								linspl2=linspl.split('_')
 								print(linspl2)
-								name = '>' + linspl2[2] + '_' + linspl2[3] + '\n'
+								name = '>' + linspl2[2] + '_' + linspl2[3]
 								print(name)
 								replaceAll(file, line, name)
 		else:
