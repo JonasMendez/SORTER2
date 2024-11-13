@@ -561,7 +561,7 @@ for samp in os.listdir(args.workingdir):
 					if ind in readstat:
 						print(readstat)
 						with open(readstat, "r") as statfile:
-							lines_to_read = [13, 14]
+							lines_to_read = [16, 17]
 							for position, line in enumerate(statfile):
 								if '+' in line:
 									statlabela = line.split(" ")[3]
@@ -574,13 +574,13 @@ for samp in os.listdir(args.workingdir):
 									HETDICT[ind][statlabel].append(int(statint))
 								else:
 									if position in lines_to_read:
-										if position == 13:
+										if position == 16:
 											statlabel = 'readdepth'
 											statint = line.strip('\n')
 											print(statlabel + ' = ' + statint)
 											HETDICT[ind][statlabel]=[]
 											HETDICT[ind][statlabel].append(int(float(statint)))
-										elif position == 14:
+										elif position == 17:
 											statlabel = 'coverage'
 											statint = line.strip('\n')
 											print(statlabel + ' = ' + statint)
