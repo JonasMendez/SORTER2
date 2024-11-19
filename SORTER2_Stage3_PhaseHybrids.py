@@ -607,7 +607,7 @@ for file in os.listdir(phaseset+'diploidclusters_phased/'):
 				if '>' in line:
 					print(line)
 					linspl=line.split(' ')
-					name = linspl[0] +'\n'
+					name = linspl[0]
 					print(name)
 					replaceAll(file, line, name)
 
